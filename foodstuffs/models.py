@@ -4,6 +4,9 @@ from django.db import models
 class User(models.Model):
     user_name=models.CharField(max_length=50 ,unique=True)
     user_password=models.CharField(max_length=16)
+    user_mail=models.EmailField()
+    def __str__(self):
+        return self.user_name
     
     
 class UserRecipe(models.Model):
@@ -15,9 +18,12 @@ class UserRecipe(models.Model):
     recipe_img=models.ImageField(upload_to='images/')
     recipe_publish=models.DateField()
     recipe_edit=models.DateField()
+    def __str__(self):
+        return self.recipe_name
     
 class Comment(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     userrecipe=models.ForeignKey(UserRecipe, on_delete=models.CASCADE)
     comment_text=models.CharField(max_length=200)
     comment_date=models.DateField()
+    
