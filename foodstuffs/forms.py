@@ -8,3 +8,16 @@ class UserForm(ModelForm):
         model = User
         fields= ["user_name","user_password","user_mail"]
 
+class LoginForm(forms.Form):
+    usr_name=forms.CharField(max_length=50)
+    usr_password=forms.CharField(widget=forms.PasswordInput)
+    
+
+class MakeRecipeForm(forms.Form):
+    recipe_name=forms.CharField(max_length=50)
+    recipe_description=forms.CharField(max_length=500)
+    recipe_ingredients=forms.CharField(max_length=500)
+    recipe_steps=forms.CharField(max_length=2000)
+    recipe_img=forms.ImageField()
+    
+    

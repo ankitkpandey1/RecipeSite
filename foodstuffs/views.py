@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from foodstuffs.forms import UserForm
+from foodstuffs.forms import UserForm,LoginForm, MakeRecipeForm
 from django.contrib import sessions
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.http import HttpResponse
+from .models import User, UserRecipe ,Comment
 
 def base(request):
-    pass
+    request.session['is_logged']=False
+    request.session['user_id']=-1
+    return redirect('/foodstuffs')
     
   
 
@@ -21,21 +25,60 @@ def signup(request):
 
     if request.method == "POST":
         form=UserForm(request.POST)
-        if form.is_Valid():
+        if form.is_valid():
             form.save()
-            return redirect('/Success/')
+            return redirect('/foodstuffs/success')
     else:
         form=UserForm()
     return render(request,'foodstuffs/signup.html',{'form':form})
 
 def login(request):
-    pass
+    
+    if request.method == "POST":
+        form=LoginForm(request.POST)
+        if form.is_valid():
+            try:
+                
+                usr_name=form.cleaned_data['usr_name']
+                usr_password=form.cleaned_data['usr_password']
+                q=User.objects.get(user_name=usr_name,user_password=usr_password)
+                request.session['is_logged']= True
+                request.session['id']=q.id
+                return redirect('/foodstuffs/success')
+            except:
+                return HttpResponse("<h1>Invalid Details</h1>")
+        
+    else:
+        form=LoginForm()
+    return render(request,'foodstuffs/login.html',{'form':form})
 
 def logout(request):
-    pass
+    request.session['is_logged']=False
+    request.session['id']=-1
+    return redirect('/foodstuffs/success')
 
 def makerecipe(request):
-    pass
+    
+    if request.method == "POST":
+        form=MakeRecipeForm(request.POST ,request.FILES)
+        if form.is_valid():
+            try:
+                recipename=form.cleaned_data['recipe_name']
+                recipedescription=form.cleaned_data['recipe_description']
+                recipeingredients=form.cleaned_data['recipe_ingredients']
+                recipesteps=form.cleaned_data['recipe_steps']
+                recipeimg=form.cleaned_data['recipe_img']
+                userq=User.objects.get(pk=request.session['id'])
+                q=UserRecipe(recipe_name=recipename,recipe_description=recipedescription,recipe_ingredients=recipeingredients,recipe_steps=recipesteps,recipe_img=recipeimg, user=userq,recipe_publish=timezone.now(),recipe_edit=timezone.now())
+                q.save()
+                return redirect('/foodstuffs/success')
+            except:
+                return HttpResponse("<h1>Fatal Error</h1>")
+                
+           
+    else:
+        form=MakeRecipeForm()
+    return render(request,'foodstuffs/makerecipe.html',{'form':form})
 
 def editrecipe(request):
     pass
