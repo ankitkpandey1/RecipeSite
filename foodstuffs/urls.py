@@ -17,6 +17,6 @@ urlpatterns = [
     path('login', views.login ,name='log in'),
     path('logout',views.logout, name='log out'),
     path('makerecipe',views.makerecipe,name='make recipe'),
-    path('editrecipe',views.editrecipe,name='edit recipe'),
+    path('<int:recipe_id>/editrecipe',views.editrecipe,name='edit recipe'),
     path('success',views.success,name='success'),
 ]

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <title>{{form.recipe_name}}</title>
+</head>
+
+
+<style>
+    p {
+        display: none;
+    }
+</style>
+
+<script>
+    function editrecipename() {
+        document.getElementById('editname').style.display = 'block';
+        document.getElementById('but1').style.display = 'none'
+    }
+
+    function editrecipedescription() {
+        document.getElementById('editdescription').style.display = 'block';
+        document.getElementById('but2').style.display = 'none'
+    }
+
+    function editrecipeingredients() {
+        document.getElementById('editingredients').style.display = 'block';
+        document.getElementById('but3').style.display = 'none'
+    }
+
+    function editrecipesteps() {
+        document.getElementById('editsteps').style.display = 'block';
+        document.getElementById('but4').style.display = 'none'
+    }
+
+    function editrecipeimg() {
+        document.getElementById('editimg').style.display = 'block';
+        document.getElementById('but5').style.display = 'none'
+    }
+</script>
+
+<body>
+
+
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <table>
+            <tr>
+                Recipe Name: {{q.recipe_name}}
+                <button id="but1" type="button" onclick="editrecipename()">Edit</button></tr>
+            <tr>
+                <br>
+                <p id="editname">Enter new recipe name: {{form1.recipe_name}} </p>
+            </tr>
+
+            <tr>
+                Recipe description: {{q.recipe_description}}
+                <button id="but2" type="button" onclick="editrecipedescription()">Edit</button></tr>
+            <tr>
+                <br>
+                <p id="editdescription">Enter new recipe description: {{form1.recipe_description}} </p>
+            </tr>
+
+            <tr>
+                Recipe Ingredients: {{q.recipe_ingredients}}
+                <button id="but3" type="button" onclick="editrecipeingredients()">Edit</button></tr>
+            <tr>
+                <br>
+                <p id="editingredients">Enter new recipe incredients: {{form1.recipe_ingredients}} </p>
+            </tr>
+
+            <tr>
+                Recipe steps: {{q.recipe_steps}}
+                <button id="but4" type="button" onclick="editrecipesteps()">Edit</button></tr>
+            <tr>
+                <br>
+                <p id="editsteps">Enter new recipe steps: {{form1.recipe_steps}} </p>
+            </tr>
+
+            <tr>
+                Recipe Image:<img src="{{ q.recipe_img.url }}" alt="img" height="200vw" width="300vw">
+                <button id="but5" type="button" onclick="editrecipeimg()">Edit</button></tr>
+            <tr>
+                <br>
+                <p id="editimg">Enter new recipe image: {{form1.recipe_img}} </p>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+        </table>
+        <button type="submit">Submit </button>
+
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
