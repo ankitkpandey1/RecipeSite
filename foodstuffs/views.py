@@ -19,7 +19,16 @@ def home(request):
  
 
 def recipe(request, recipe_id):
-    pass
+    try:
+        userq=''
+        q=UserRecipe.objects.get(pk=recipe_id)
+        if request.session['is_logged'] == True:
+            userq=User.objects.get(pk=request.session['id'])
+    except:
+        return HttpResponse("<h1>Fatal Error</h1>")
+    islog=request.session['is_logged']
+    return render(request,'foodstuffs/recipe.html',{'q':q,'userq':userq, 'islog':islog})
+        
 
 def signup(request):
 

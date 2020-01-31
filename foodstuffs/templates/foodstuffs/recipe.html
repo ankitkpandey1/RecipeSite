@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{q.recipe_name}}</title>
+</head>
+<style>
+    table {
+        padding-top: 2.5vw;
+        color: gray;
+        font-size: large;
+    }
+    
+    div {
+        padding-left: 10vw;
+    }
+    
+    p {
+        color: gray;
+        font-size: larger;
+    }
+    
+    h1 {
+        font-family: cursive;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: blue;
+    }
+</style>
+
+<body>
+    <div>
+        <h1>{{q.recipe_name}}</h1>
+        <p>Recipe by {{q.user.user_name}} . Published on {{q.recipe_publish}}. Lasted edited on {{q.recipe_edit}}</p>
+        <img src="{{q.recipe_img.url}}" alt="Recipe Image" height="150vw" width="200vw"> </div>
+
+    <div class="content">
+        <table>
+
+
+
+            <td>
+
+            </td><br><br>
+            <tr></tr>
+
+
+            <tr>
+                <td>Description</td>
+                <td>{{q.recipe_description}}</td>
+            </tr><br>
+            <tr>
+                <td>Ingredients</td>
+                <td>{{q.recipe_ingredients}}</td>
+            </tr>
+
+            <tr>
+                <td>Steps</td>
+                <td>{{q.recipe_steps}}</td>
+            </tr>
+
+
+
+            <tr>{% if islog == True %} {% if userq.user_name == q.user.user_name %}
+                <a href="editrecipe ">Edit Recipe</a> {% endif %} {% endif %}</tr>
+
+
+
+
+
+
+
+
+
+        </table>
+
+
+
+
+
+    </div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+</html>
