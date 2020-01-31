@@ -26,4 +26,7 @@ class EditRecipeForm(forms.Form):
     recipe_ingredients=forms.CharField(max_length=500,required=False)
     recipe_steps=forms.CharField(max_length=2000,required=False)
     recipe_img=forms.ImageField(required=False)
-     
+    
+class SearchForm(forms.Form):
+    keyword=forms.CharField(max_length=50)
+    

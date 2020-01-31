@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from foodstuffs.forms import UserForm,LoginForm, MakeRecipeForm, EditRecipeForm
+from foodstuffs.forms import UserForm,LoginForm, MakeRecipeForm, EditRecipeForm, SearchForm
 from django.contrib import sessions
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -14,8 +14,24 @@ def base(request):
   
 
 def home(request):
-    pass
-
+    islog=request.session['is_logged']
+    userq=''
+    if islog == True:
+        userq=User.objects.get(pk=request.session['user_id'])
+    
+    if request.method == "POST":
+        form=SearchForm(request.POST)
+        if form.is_valid():
+            keyword=form.cleaned_data['keyword']
+            
+          
+            q=UserRecipe.objects.filter(recipe_name__icontains=keyword)
+           
+               
+            return render(request,'foodstuffs/searchresult.html',{'q':q})
+    else:
+        form=SearchForm()
+    return render(request,'foodstuffs/home.html',{'form':form,'islog':islog,'userq':userq})
  
 
 def recipe(request, recipe_id):
