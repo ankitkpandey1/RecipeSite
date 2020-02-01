@@ -1,27 +1,28 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Search Result</title>
+    <title>Profile Information</title>
     <link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
 </head>
 <style>
-    .results {
-        padding-top: 5vw;
-        padding-left: 5vw;
+    .as {
+        text-decoration: none;
+        color: black;
+        font-size: larger;
+    }
+    
+    .as:hover {
+        background-color: gray;
+    }
+    
+    .main {
         margin: auto;
         width: 30%;
-    }
-    
-    #resultsa {
-        text-decoration: none;
-        font-size: 20px;
-    }
-    
-    #resultsa:hover {
-        background-color: gray;
-        color: whitesmoke;
+        padding-top: 3vw;
+        padding-left: 3vw;
+        font-weight: bolder;
     }
 </style>
 
@@ -40,23 +41,18 @@
         </ul>
 
     </div>
-
-
-
-    <div class="results">
-        <h1>Search results</h1>
+    <div class="main">
+        <h1>Welcome {{userq.user_name}} !</h1>
+        <h3>All recipes made by you are as follows :</h3>
         <table>
+
             {% for some in q %}
             <tr>
-                <td><a id="resultsa" href="/foodstuffs/{{some.id}}">{{some}}</a></td>
-                <tr></tr>
+                <td><a class="as" href="/foodstuffs/{{some.id}}">{{some.recipe_name}}</a></td>
             </tr>
+
             {% endfor %}
-
-
-
         </table>
-
 
     </div>
 

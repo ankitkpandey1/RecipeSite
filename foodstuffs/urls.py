@@ -19,4 +19,6 @@ urlpatterns = [
     path('makerecipe',views.makerecipe,name='make recipe'),
     path('<int:recipe_id>/editrecipe',views.editrecipe,name='edit recipe'),
     path('success',views.success,name='success'),
+    path('about',views.about,name='about'),
+    path('profile',views.profile,name='profile'),
 ]

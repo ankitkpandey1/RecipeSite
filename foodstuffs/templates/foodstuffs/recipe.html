@@ -32,17 +32,17 @@
         <ul class="ul1">
             <li class="li1"><a class="lia" href="/">Home</a></li>
             {% if islog == True %}
-            <li class="li1"><a class="lia" href="makerecipe">Make a Recipe!</a></li>
-            <li class="li1"><a class="lia" href="profile">Profile ({{userq.user_name}})</a></li>
-            <li class="li1"><a class="lia" href="logout">Log out</a></li>
+            <li class="li1"><a class="lia" href="/foodstuffs/makerecipe">Make a Recipe!</a></li>
+            <li class="li1"><a class="lia" href="/foodstuffs/profile">Profile ({{userq.user_name}})</a></li>
+            <li class="li1"><a class="lia" href="/foodstuffs/logout">Log out</a></li>
 
             {% else %}
-            <li class="li1"><a class="lia" href="login">Log in</a></li>
+            <li class="li1"><a class="lia" href="/foodstuffs/login">Log in</a></li>
             {% endif %}
 
 
 
-            <li class="li1"><a class="lia" href="about">About</a></li>
+            <li class="li1"><a class="lia" href="/foodstuffs/about">About</a></li>
 
         </ul>
 

@@ -1,14 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Successful</title>
+    <link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
 </head>
+<style>
+    .msg {
+        margin: auto;
+        width: 30%;
+        text-decoration: none;
+        padding-top: 5vw;
+        padding-left: 5vw;
+    }
+    
+    #a1 {
+        margin: auto;
+        width: 30%;
+        text-decoration: none;
+        color: gray;
+    }
+    
+    #a1.hover {
+        color: black;
+    }
+</style>
 
 <body>
-    <h1>Success!</h1>
-    <a href="/">go Home</a>
+    <header>My Food Recipe!</header>
+    <div class="menu">
 
+        <ul class="ul1">
+            <li class="li1"><a class="lia" href="/">Home</a></li>
+
+
+
+
+            <li class="li1"><a class="lia" href="/foodstuffs/about">About</a></li>
+
+        </ul>
+
+    </div>
+    <div class="msg">
+        <h1>Success!</h1>
+        <a id="a1" href="/">go Home</a>
+    </div>
 
 </body>
 

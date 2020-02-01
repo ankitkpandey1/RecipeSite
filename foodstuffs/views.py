@@ -28,7 +28,7 @@ def home(request):
     islog=request.session['is_logged']
     userq=''
   
-    if islog == True:
+    if islog == True and request.session['id'] != -1:
         userq=User.objects.get(pk=request.session['id'])
     
     if request.method == "POST":
@@ -90,7 +90,7 @@ def login(request):
                 request.session['id']=q.id
                 return redirect('/foodstuffs/success')
             except:
-                msg="Sorry unable to make new user account"
+                msg="Unable to log you in. Please try again."
                 return render(request,'foodstuffs/landingpage.html',{'msg':msg})
         
     else:
@@ -176,3 +176,16 @@ def editrecipe(request, recipe_id):
 
 def success(request):
     return render(request,'foodstuffs/success.html')
+
+def about(request):
+    return render(request,'foodstuffs/about.html')
+
+def profile(request):
+    if request.session['is_logged']==False:
+        msg="Please login first."
+        return render(request,'foodstuffs/landingpage.html',{'msg':msg})
+    userq=User.objects.get(pk=request.session['id']) 
+    q=UserRecipe.objects.filter(user=userq) 
+    
+    return render(request,'foodstuffs/profile.html',{'userq':userq ,'q':q})
+    
