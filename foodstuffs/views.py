@@ -14,6 +14,7 @@ def base(request):
   
 
 def home(request):
+    if 'is_logged' in request.session
     islog=request.session['is_logged']
     userq=''
     if islog == True:
@@ -22,12 +23,18 @@ def home(request):
     if request.method == "POST":
         form=SearchForm(request.POST)
         if form.is_valid():
+            choice=form.cleaned_data.get("choice")
             keyword=form.cleaned_data['keyword']
-            
-          
-            q=UserRecipe.objects.filter(recipe_name__icontains=keyword)
+            if(choice=="name"):
+                q=UserRecipe.objects.filter(recipe_name__icontains=keyword)
+            else:
+                q=UserRecipe.objects.filter(recipe_ingredients__icontains=keyword)
            
-               
+            if q.first() is None:
+                msg="Couldn't find any match"
+                return render(request,'foodstuffs/landingpage.html',{'msg':msg})
+                
+                   
             return render(request,'foodstuffs/searchresult.html',{'q':q})
     else:
         form=SearchForm()
@@ -41,7 +48,8 @@ def recipe(request, recipe_id):
         if request.session['is_logged'] == True:
             userq=User.objects.get(pk=request.session['id'])
     except:
-        return HttpResponse("<h1>Fatal Error</h1>")
+        msg="Fatal Error"
+        return render(request,'foodstuffs/landingpage.html',{'msg':msg})
     islog=request.session['is_logged']
     return render(request,'foodstuffs/recipe.html',{'q':q,'userq':userq, 'islog':islog})
         
@@ -71,7 +79,8 @@ def login(request):
                 request.session['id']=q.id
                 return redirect('/foodstuffs/success')
             except:
-                return HttpResponse("<h1>Invalid Details</h1>")
+                msg="Sorry unable to make new user account"
+                return render(request,'foodstuffs/landingpage.html',{'msg':msg})
         
     else:
         form=LoginForm()
@@ -84,7 +93,9 @@ def logout(request):
 
 def makerecipe(request):
     if request.session['is_logged']==False:
-        return HttpResponse("<h1>Please login first</h1>")
+        msg="Please login first"
+        return render(request,'foodstuffs/landingpage.html',{'msg':msg})
+        
     
     if request.method == "POST":
         form=MakeRecipeForm(request.POST ,request.FILES)
@@ -100,7 +111,8 @@ def makerecipe(request):
                 q.save()
                 return redirect('/foodstuffs/success')
             except:
-                return HttpResponse("<h1>Fatal Error</h1>")
+                msg="Sorry, unable to create recipe. Please contact administrator."
+                return render(request,'foodstuffs/landingpage.html',{'msg':msg})
                 
            
     else:
@@ -109,11 +121,13 @@ def makerecipe(request):
 
 def editrecipe(request, recipe_id):
     if request.session['is_logged']==False:
-        return HttpResponse("<h1>Please login first</h1>")
+        msg="Please login first."
+        return render(request,'foodstuffs/landingpage.html',{'msg':msg})
     q=UserRecipe.objects.get(pk=recipe_id)
     userq=User.objects.get(pk=request.session['id'])
     if q.user.id != userq.id:
-        return HttpResponse("<h1>Permission denied</h1>")
+        msg="Sorry, you don't have permission to do this operation. Please contact administrator."
+        return render(request,'foodstuffs/landingpage.html',{'msg':msg})
         
     if request.method == "POST":
         form=EditRecipeForm(request.POST ,request.FILES)
@@ -136,7 +150,8 @@ def editrecipe(request, recipe_id):
                 q.save()
                 return redirect('/foodstuffs/success')
             except:
-                return HttpResponse("<h1>Fatal Error</h1>")
+                msg="Unable to do edit. Please contact administrator."
+                return render(request,'foodstuffs/landingpage.html',{'msg':msg})
     else:
         form1=EditRecipeForm()
         q=UserRecipe.objects.get(pk=recipe_id)

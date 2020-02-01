@@ -29,4 +29,5 @@ class EditRecipeForm(forms.Form):
     
 class SearchForm(forms.Form):
     keyword=forms.CharField(max_length=50)
+    choice=forms.CharField(max_length=10)
     

@@ -5,37 +5,23 @@
     <title>Welcome Food Recipe!</title>
 </head>
 <script>
-    function searchname() {
-        document.getElementById('2').style.display = 'none';
-        document.getElementById('3').style.display = 'block';
-
-        {
-            {
-                form.choice = 'recipe_name'
-            }
-        }
-
-
-
-    }
 </script>
 <style>
-    div {
-        display: none;
-    }
+
 </style>
 
 <body>
 
 
-    <button id="1" type="button" onclick="searchname()">Search by Name</button>
-    <button id="2" type="button" onclick="searchingredients()">Search by Ingredients </button>
+
 
     <div id="3">
         <form method="POST">
             {% csrf_token %} {{form.keyword}}
 
-            <button type="submit">Search</button>
+            <button type="submit" value="name" name="choice">Search by name </button>
+            <button type="submit" value="ingredient" name="choice">Search by Ingredients </button>
+
         </form>
     </div>
 
