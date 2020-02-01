@@ -28,6 +28,6 @@ class EditRecipeForm(forms.Form):
     recipe_img=forms.ImageField(required=False)
     
 class SearchForm(forms.Form):
-    keyword=forms.CharField(max_length=50)
+    keyword=forms.CharField(max_length=50,widget=forms.Textarea(attrs={'cols':40,'rows':1}) )
     choice=forms.CharField(max_length=10)
     

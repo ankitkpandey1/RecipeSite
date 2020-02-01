@@ -1,0 +1,35 @@
+header {
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    padding-left: 2vw;
+    background-color: rgba(54, 51, 51, 0.774);
+    font-weight: bolder;
+    font-family: 'Lucida Sans';
+    color: whitesmoke;
+    font-size: 1.2vw;
+}
+
+.ul1 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.li1 {
+    float: left;
+}
+
+.lia {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.lia:hover {
+    background-color: #555;
+    color: white;
+}

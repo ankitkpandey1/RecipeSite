@@ -1,29 +1,72 @@
+ {% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Welcome Food Recipe!</title>
 </head>
+<link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
 <script>
 </script>
 <style>
-
+    #input {
+        padding-top: 5vw;
+        margin: auto;
+        width: 20%;
+    }
+    
+    em {
+        text-align: center;
+        color: rgba(17, 2, 2, 0.699);
+    }
 </style>
 
 <body>
     <header>My Food Recipe!</header>
+    <div class="menu">
+
+        <ul class="ul1">
+            <li class="li1"><a class="lia" href="Home">Home</a></li>
+            {% if islog == True %}
+            <li class="li1"><a class="lia" href="makerecipe">Make a Recipe!</a></li>
+            <li class="li1"><a class="lia" href="profile">Profile</a></li>
+            <li class="li1"><a class="lia" href="logout">Log out</a></li>
+
+            {% else %}
+            <li class="li1"><a class="lia" href="login">Log in</a></li>
+            {% endif %}
 
 
 
-    <div id="3">
-        <form method="POST">
-            {% csrf_token %} {{form.keyword}}
+            <li class="li1"><a class="lia" href="about">About</a></li>
 
-            <button type="submit" value="name" name="choice">Search by name </button>
-            <button type="submit" value="ingredient" name="choice">Search by Ingredients </button>
+        </ul>
 
-        </form>
     </div>
+
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div id="input">
+            <em>Search for Recipe</em>
+
+
+            <br><br>
+            <table>
+                <tr>
+                    <td> {{form.keyword}}</td>
+                </tr>
+                <tr>
+                    <td> <button type="submit" value="name" name="choice">Search by name</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <button type="submit" value="ingredient" name="choice">Search by Ingredients</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
 
 
 
