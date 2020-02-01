@@ -10,5 +10,7 @@ urlpatterns = [
     path('foodstuffs/' , include('foodstuffs.urls')),
     path('admin/', admin.site.urls),
 ]
+
+''' This was essential for locating image '''
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
