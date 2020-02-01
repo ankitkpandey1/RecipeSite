@@ -7,18 +7,29 @@ from django.http import HttpResponse
 from .models import User, UserRecipe ,Comment
 
 def base(request):
-    request.session['is_logged']=False
-    request.session['user_id']=-1
+    try:
+        test1=request.session['is_logged']
+        test2=request.session['id']
+    except:
+        request.session['is_logged']=False
+        request.session['id']=-1
+        
+        
+    
+    
+    
     return redirect('/foodstuffs')
     
   
 
 def home(request):
-    if 'is_logged' in request.session
+       
+    
     islog=request.session['is_logged']
     userq=''
+  
     if islog == True:
-        userq=User.objects.get(pk=request.session['user_id'])
+        userq=User.objects.get(pk=request.session['id'])
     
     if request.method == "POST":
         form=SearchForm(request.POST)

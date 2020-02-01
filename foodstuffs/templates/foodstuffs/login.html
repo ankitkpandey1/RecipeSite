@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Sign Up</title>
+    <title>Log In</title>
 </head>
 
 <body>
@@ -10,14 +10,12 @@
 
     <form method="POST">
         <table>
-
-
-            {{form.as_table}} {% csrf_token %}
+            {% csrf_token %} {{form.as_table}}
 
 
 
         </table>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Log In</button>
 
 
     </form>
