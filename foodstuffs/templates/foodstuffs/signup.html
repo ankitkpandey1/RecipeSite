@@ -1,23 +1,62 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Sign Up</title>
 </head>
+<link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
+<style>
+    table {
+        padding-left: 3vw;
+        padding-top: 3vw;
+    }
+</style>
 
 <body>
 
 
+    <header>My Food Recipe!</header>
+
+    <div class="menu">
+
+        <ul class="ul1">
+            <li class="li1"><a class="lia" href="/">Home</a></li>
+
+
+
+
+            <li class="li1"><a class="lia" href="about">About</a></li>
+
+        </ul>
+
+    </div>
+
     <form method="POST">
         <table>
+            {% csrf_token %}
+            <tr>
+                <td>Enter desired user name: </td>
+                <td>{{form.user_name}}</td>
+            </tr>
+            <tr>
+                <td>Enter your email:</td>
+                <td>{{form.user_mail}}
+                </td>
+            </tr>
+            <tr>
+                <td>Enter your password:</td>
+                <td>{{form.user_password}}</td>
+            </tr>
+            <tr>
 
-
-            {{form.as_table}} {% csrf_token %}
-
-
-
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Sign Up</button></td>
+            </tr>
         </table>
-        <button type="submit">Sign Up</button>
+
 
 
     </form>

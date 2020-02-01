@@ -1,27 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>{{q.recipe_name}}</title>
 </head>
+<link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
 <style>
-    table {
-        padding-top: 2.5vw;
-        color: gray;
-        font-size: large;
-    }
-    
-    div {
-        padding-left: 10vw;
-    }
-    
-    p {
-        color: gray;
-        font-size: larger;
-    }
-    
-    h1 {
-        font-family: cursive;
+    .content {
+        padding-left: 3vw;
+        padding-top: 3vw;
+        margin: auto;
+        width: 40%;
+        font-weight: bolder;
+        color: rgb(73, 71, 71);
     }
     
     a {
@@ -29,25 +21,47 @@
     }
     
     a:hover {
-        color: blue;
+        color: blue
     }
 </style>
 
 <body>
-    <div>
+    <header>My Food Recipe!</header>
+    <div class="menu">
+
+        <ul class="ul1">
+            <li class="li1"><a class="lia" href="/">Home</a></li>
+            {% if islog == True %}
+            <li class="li1"><a class="lia" href="makerecipe">Make a Recipe!</a></li>
+            <li class="li1"><a class="lia" href="profile">Profile ({{userq.user_name}})</a></li>
+            <li class="li1"><a class="lia" href="logout">Log out</a></li>
+
+            {% else %}
+            <li class="li1"><a class="lia" href="login">Log in</a></li>
+            {% endif %}
+
+
+
+            <li class="li1"><a class="lia" href="about">About</a></li>
+
+        </ul>
+
+    </div>
+    <div class="content">
         <h1>{{q.recipe_name}}</h1>
         <p>Recipe by {{q.user.user_name}} . Published on {{q.recipe_publish}}. Lasted edited on {{q.recipe_edit}}</p>
-        <img src="{{q.recipe_img.url}}" alt="Recipe Image" height="150vw" width="200vw"> </div>
+        <img src="{{q.recipe_img.url}}" alt="Recipe Image" height="300vw" width="500vw"> </div>
 
     <div class="content">
         <table>
 
 
 
-            <td>
-
-            </td><br><br>
-            <tr></tr>
+            <tr>
+                <td></td>
+                <td>{% if islog == True %} {% if userq.user_name == q.user.user_name %}
+                    <a href="editrecipe ">Edit Recipe</a> {% endif %} {% endif %}</td>
+            </tr>
 
 
             <tr>
@@ -66,11 +80,10 @@
 
 
 
-            <tr>{% if islog == True %} {% if userq.user_name == q.user.user_name %}
-                <a href="editrecipe ">Edit Recipe</a> {% endif %} {% endif %}</tr>
 
 
 
+        </table>
 
 
 

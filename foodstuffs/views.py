@@ -106,7 +106,12 @@ def makerecipe(request):
     if request.session['is_logged']==False:
         msg="Please login first"
         return render(request,'foodstuffs/landingpage.html',{'msg':msg})
-        
+    
+    islog=request.session['is_logged']
+    userq=''
+  
+    if islog == True:
+        userq=User.objects.get(pk=request.session['id'])   
     
     if request.method == "POST":
         form=MakeRecipeForm(request.POST ,request.FILES)
@@ -128,7 +133,7 @@ def makerecipe(request):
            
     else:
         form=MakeRecipeForm()
-    return render(request,'foodstuffs/makerecipe.html',{'form':form})
+    return render(request,'foodstuffs/makerecipe.html',{'form':form,'userq':userq,'islog':islog})
 
 def editrecipe(request, recipe_id):
     if request.session['is_logged']==False:
@@ -145,15 +150,15 @@ def editrecipe(request, recipe_id):
         if form.is_valid():
             try:
                 q=UserRecipe.objects.get(pk=recipe_id)
-                if (not form.cleaned_data['recipe_name'] is None):
+                if (form.cleaned_data['recipe_name'] != 'please fill in details'):
                     q.recipe_name=form.cleaned_data['recipe_name']
-                if (not form.cleaned_data['recipe_description'] is None):
+                if (form.cleaned_data['recipe_description'] != 'please fill in details'):
                     q.recipe_description=form.cleaned_data['recipe_description']
-                if (not form.cleaned_data['recipe_ingredients'] is None):
+                if (form.cleaned_data['recipe_ingredients'] != 'please fill in details'):
                     q.recipe_ingredients=form.cleaned_data['recipe_ingredients']
-                if (not form.cleaned_data['recipe_steps'] is None):
+                if (form.cleaned_data['recipe_steps'] != 'please fill in details'):
                     q.recipe_steps=form.cleaned_data['recipe_steps']
-                if (not form.cleaned_data['recipe_img'] is None):
+                if (form.cleaned_data['recipe_img'] != 'please fill in details'):
                     q.recipe_img=form.cleaned_data['recipe_img']
                                   
                       

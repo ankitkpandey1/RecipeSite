@@ -1,23 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Sign Up</title>
+    <title>Make A Recipe!</title>
+    <link rel="stylesheet" href="{% static 'css/foodstuffs.css' %}">
+    <style>
+        table {
+            padding-top: 3vw;
+            padding-left: 3vw;
+            ;
+        }
+    </style>
 </head>
 
 <body>
+    <header>My Food Recipe!</header>
+    <div class="menu">
+
+        <ul class="ul1">
+            <li class="li1"><a class="lia" href="/">Home</a></li>
+            {% if islog == True %}
+            <li class="li1"><a class="lia" href="makerecipe">Make a Recipe!</a></li>
+            <li class="li1"><a class="lia" href="profile">Profile ({{userq.user_name}})</a></li>
+            <li class="li1"><a class="lia" href="logout">Log out</a></li>
+
+            {% else %}
+            <li class="li1"><a class="lia" href="login">Log in</a></li>
+            {% endif %}
 
 
+
+            <li class="li1"><a class="lia" href="about">About</a></li>
+
+        </ul>
+
+    </div>
     <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
         <table>
+            <tr>
+                <td>Enter Recipe name </td>
+                <td>{{form.recipe_name}}</td>
 
-
-            {{form.as_table}} {% csrf_token %}
-
+            </tr>
+            <tr>
+                <td>Enter Recipe description</td>
+                <td>{{form.recipe_description}}</td>
+            </tr>
+            <tr>
+                <td>Enter Recipe ingredients</td>
+                <td>{{form.recipe_ingredients}}</td>
+            </tr>
+            <tr>
+                <td>Enter Recipe steps</td>
+                <td>{{form.recipe_steps}}</td>
+            </tr>
+            <tr>
+                <td>Recipe image</td>
+                <td>{{form.recipe_img}}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Submit your recipe</button></td>
+            </tr>
 
 
         </table>
-        <button type="submit">Sign Up</button>
+
 
 
     </form>
