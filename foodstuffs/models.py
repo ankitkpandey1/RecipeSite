@@ -1,5 +1,5 @@
 from django.db import models
-''' Image field needs pillow '''
+''' Image field needs installation of pillow '''
 
 class User(models.Model):
     user_name=models.CharField(max_length=50 ,unique=True)
@@ -21,9 +21,14 @@ class UserRecipe(models.Model):
     def __str__(self):
         return self.recipe_name
     
-class Comment(models.Model):
+''' 
+    Experimental feature, couldn't be deployed due to time constrain.
+    
+    class Comment(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     userrecipe=models.ForeignKey(UserRecipe, on_delete=models.CASCADE)
     comment_text=models.CharField(max_length=200)
     comment_date=models.DateField()
+    
+    '''
     

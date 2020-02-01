@@ -1,7 +1,4 @@
-                      
-        
       
-        
 from django.urls import path
 
 from foodstuffs import views
@@ -22,3 +19,5 @@ urlpatterns = [
     path('about',views.about,name='about'),
     path('profile',views.profile,name='profile'),
 ]
+
+''' Base in view returns home page only '''

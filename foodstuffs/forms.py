@@ -1,5 +1,5 @@
 from django import forms
-from foodstuffs.models import User, UserRecipe,Comment
+from foodstuffs.models import User, UserRecipe
 from django.forms import ModelForm
 
 class UserForm(ModelForm):
@@ -20,6 +20,8 @@ class MakeRecipeForm(forms.Form):
     recipe_steps=forms.CharField(max_length=2000,widget=forms.Textarea(attrs={'cols':50,'rows':10}))
     recipe_img=forms.ImageField()
     
+    
+    '''default values will be compared during editing operation in order filter out changes made in recipe'''
 class EditRecipeForm(forms.Form):
     recipe_name=forms.CharField(max_length=50,required=False,initial='please fill in details')
     recipe_description=forms.CharField(max_length=500,required=False,initial='please fill in details')

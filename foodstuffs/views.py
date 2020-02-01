@@ -4,7 +4,14 @@ from django.contrib import sessions
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.http import HttpResponse
-from .models import User, UserRecipe ,Comment
+from .models import User, UserRecipe 
+
+
+
+'''base function is for initialization of session variables only. '''
+
+
+''' q subscript and variable name denotes a query '''
 
 def base(request):
     try:
@@ -13,18 +20,13 @@ def base(request):
     except:
         request.session['is_logged']=False
         request.session['id']=-1
-        
-        
-    
-    
-    
+   
     return redirect('/foodstuffs')
     
   
-
+''' in case of deletion of all records, please delete sqllite file too as it can create nasty errors '''
 def home(request):
        
-    
     islog=request.session['is_logged']
     userq=''
   
@@ -42,7 +44,7 @@ def home(request):
                 q=UserRecipe.objects.filter(recipe_ingredients__icontains=keyword)
            
             if q.first() is None:
-                msg="Couldn't find any match"
+                msg="Couldn't find any match!"
                 return render(request,'foodstuffs/landingpage.html',{'msg':msg})
                 
                    
@@ -129,8 +131,7 @@ def makerecipe(request):
             except:
                 msg="Sorry, unable to create recipe. Please contact administrator."
                 return render(request,'foodstuffs/landingpage.html',{'msg':msg})
-                
-           
+     
     else:
         form=MakeRecipeForm()
     return render(request,'foodstuffs/makerecipe.html',{'form':form,'userq':userq,'islog':islog})
